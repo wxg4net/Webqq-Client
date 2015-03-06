@@ -589,8 +589,8 @@ sub run{
         console "$@\n" if $@;
     }
     console "客户端运行中...\n";
-    $self->{cv} = AE::cv;
-    $self->{cv}->recv
+    # $self->{cv} = AE::cv;
+    # $self->{cv}->recv
 } 
 
 sub RUN{

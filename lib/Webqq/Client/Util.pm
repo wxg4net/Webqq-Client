@@ -5,11 +5,19 @@ use Encode::Locale;
 our @EXPORT_OK = qw(console console_stderr hash truncate code2state code2client) ;
 sub console{
     my $bytes = join "",@_;
-    print encode("locale",decode("utf8",$bytes));
+    my $data = encode("locale",decode("utf8",$bytes));
+    if (exists &main::_send_json) {
+        main::_send_json('STDOUT', $data);
+    }
+    print $data;
 }
 sub console_stderr{
     my $bytes = join "",@_;
-    print STDERR encode("locale",decode("utf8",$bytes));
+    my $data = encode("locale",decode("utf8",$bytes));
+    if (exists &main::_send_json) {
+        main::_send_json('STDERR', $data);
+    }
+    print STDERR $data;
 }
 
 #腾讯hash函数js代码 http://pidginlwqq.sinaapp.com/hash.js
